@@ -35,11 +35,7 @@ mouse_events_list=[]
 
 # game loop
 while run:
-    # to do: consider delete turn
-    if number % 2 == 1:
-        turn = True
-    else:
-        turn = False
+
     # collect only mouse click
     pygame.event.set_blocked(pygame.MOUSEMOTION)
 
@@ -66,7 +62,7 @@ while run:
         if player_turn==1:
             player="player_1"
         else:
-            player_turn="player_2"
+            player="player_2"
 
         # convert mouse coordinates to index of board list
         choosen_field = Board().choosen_field(x, y, field_list)
@@ -77,15 +73,22 @@ while run:
         # actions after click on the pawns
         if event.type == pygame.MOUSEBUTTONDOWN:
             # choice of pawn to move
-            if turn==True and field_list[choosen_field].player=="player_1":
+            if field_list[choosen_field].player==player:
                 loop_no = 0
 
                 field_list[choosen_field].player="choosen"
 
                 mouse_events_list.append(choosen_field)
-                # change of selectted pawn
-                if (len(mouse_events_list) >=2 and
-                        field_list[mouse_events_list[len(mouse_events_list)-2]].player=="choosen"):
+
+                # to do write the method
+                #
+                if len(mouse_events_list) >= 1:
+                    one_click_before = mouse_events_list[len(mouse_events_list) - 1]
+                if len(mouse_events_list) >= 2:
+                    two_click_before = mouse_events_list[len(mouse_events_list) - 2]
+
+                # change of selected pawn
+                if (len(mouse_events_list) >=2 and field_list[two_click_before].player=="choosen"):
 
                     field_list[mouse_events_list[len(mouse_events_list) - 2]].player = player
 
@@ -93,14 +96,22 @@ while run:
                 position_in_field=loop_no
 
                 loop_no+=1
-            # choice of field to move the pawn
-            elif turn==True and  player_turn==1 and field_list[choosen_field].player=="empty":
-                # move the pawn to allowed
-                if Moving().normal_move(player_turn, mouse_events_list[len(mouse_events_list)-1], # to do: to shorten
-                                     choosen_field,field_list,player)==True:
-                    # clear field of moved pawn
-                    field_list[mouse_events_list[len(mouse_events_list)-1]].player = "empty" # to do: use the method
 
+            # choice of field to move the pawn
+            elif field_list[choosen_field].player=="empty":
+                # move the pawn to allowed
+                if Moving().normal_move(player_turn, one_click_before, # to do: to shorten
+                                     choosen_field,field_list,player):
+                    # clear field of moved pawn
+                    Board().delete_pawn(one_click_before,field_list)
+
+                    player_turn*=-1
+
+                if Moving().hit_move(player_turn,one_click_before,choosen_field,field_list,player):
+
+                    Board().delete_pawn(one_click_before, field_list)
+
+                    player_turn*=-1
     # update the screen
     pygame.display.update()
 

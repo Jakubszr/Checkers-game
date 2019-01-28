@@ -49,6 +49,7 @@ class Board:
         if board[field].player!="empty":
             board[field].player="empty"
 
+    # to delete
     def replace_pawn(self,field, board, player_turn):
 
         board[field].player=player_turn

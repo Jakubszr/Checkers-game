@@ -3,6 +3,10 @@ from board import Board
 # class to make rules to move pawns on board
 class Moving:
 
+    def __init__(self):
+
+       pass
+
     def index_to_coordinate(self):
         # dictionary to transform index to coordinate of field
         index_to_coordinate={}
@@ -27,24 +31,37 @@ class Moving:
     # normal move wihout clashing the pawn
     def normal_move(self,turn,field_index,choosen_index,board,player):
 
-       number= board[field_index].field_number
+        number = board[field_index].field_number
 
-       choosen_number=board[choosen_index].field_number
+        choosen_number = board[choosen_index].field_number
 
-       if number+turn*9==choosen_number and board[choosen_index].player=="empty":
+        if number+turn*9==choosen_number and board[choosen_index].player=="empty":
 
             Board().replace_pawn(choosen_index,board,player)
 
             return True
 
-       elif number+turn*11==choosen_number and board[choosen_index].player=="empty":
+        elif number+turn*11==choosen_number and board[choosen_index].player=="empty":
 
             Board().replace_pawn(choosen_index,board, player)
 
             return True
+
     # move with clashing the pawn
-    def hit_move(self):
-        pass
+    def hit_move(self,turn,field_index,choosen_index,board,player):
+
+
+        number = board[field_index].field_number
+
+        choosen_number = board[choosen_index].field_number
+
+        if( choosen_number in [number-18 , number-22 , number+22 , number+18] \
+                and board[choosen_index].player == "empty"):
+
+            Board().replace_pawn(choosen_index, board, player)
+
+            return True
+
 
     def multihit_move(self):
         pass
