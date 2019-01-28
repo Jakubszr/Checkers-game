@@ -70,6 +70,7 @@ class Moving:
                 and board[coordinate_to_index[number-9]].player==oposite_player):
 
                 Board().replace_pawn(choosen_index, board, player)
+                Board().delete_pawn([coordinate_to_index[number-9]],board)
 
                 return True
         except KeyError:
@@ -80,7 +81,7 @@ class Moving:
                 and board[coordinate_to_index[number-11]].player==oposite_player):
 
                 Board().replace_pawn(choosen_index, board, player)
-
+                Board().delete_pawn(coordinate_to_index[number-11], board)
                 return True
         except KeyError:
             pass
@@ -90,7 +91,7 @@ class Moving:
                     and board[coordinate_to_index[number +9]].player == oposite_player):
 
                 Board().replace_pawn(choosen_index, board, player)
-
+                Board().delete_pawn(coordinate_to_index[number + 9], board)
                 return True
         except KeyError:
             pass
@@ -100,7 +101,7 @@ class Moving:
                     and board[coordinate_to_index[number + 11]].player == oposite_player):
 
                 Board().replace_pawn(choosen_index, board, player)
-
+                Board().delete_pawn(coordinate_to_index[number + 11], board)
                 return True
         except KeyError:
             pass
