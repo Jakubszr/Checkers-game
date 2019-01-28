@@ -100,18 +100,26 @@ while run:
             # choice of field to move the pawn
             elif field_list[choosen_field].player=="empty":
                 # move the pawn to allowed
-                if Moving().normal_move(player_turn, one_click_before, # to do: to shorten
-                                     choosen_field,field_list,player):
-                    # clear field of moved pawn
-                    Board().delete_pawn(one_click_before,field_list)
+                try:
+                    if Moving().normal_move(player_turn, one_click_before, # to do: to shorten
+                                         choosen_field,field_list,player):
+                        # clear field of moved pawn
+                        Board().delete_pawn(one_click_before,field_list)
 
-                    player_turn*=-1
+                        player_turn*=-1
+                except:
+                    pass
 
-                if Moving().hit_move(player_turn,one_click_before,choosen_field,field_list,player):
+                #hitting move
+                try:
+                    if Moving().hit_move(player_turn,one_click_before,choosen_field,field_list,player):
 
-                    Board().delete_pawn(one_click_before, field_list)
+                        Board().delete_pawn(one_click_before, field_list)
 
-                    player_turn*=-1
+                        player_turn*=-1
+
+                except:
+                    pass
     # update the screen
     pygame.display.update()
 

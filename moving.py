@@ -65,46 +65,19 @@ class Moving:
         # convert coordinate number to list number
         coordinate_to_index=Moving().index_to_coordinate()
 
-        try:
-            if (choosen_number==(number-18) and board[choosen_index].player=="empty"
-                and board[coordinate_to_index[number-9]].player==oposite_player):
+        proper_moves=[-18,-9,-22,-11,+18,+9,+22,+11]
 
-                Board().replace_pawn(choosen_index, board, player)
-                Board().delete_pawn([coordinate_to_index[number-9]],board)
+        for i in range(0,len(proper_moves),2):
+            try:
+                if (choosen_number==number-proper_moves[i] and board[choosen_index].player=="empty"
+                and board[coordinate_to_index[number-proper_moves[i+1]]].player==oposite_player):
 
-                return True
-        except KeyError:
-            pass
+                    Board().replace_pawn(choosen_index, board, player)
+                    Board().delete_pawn(coordinate_to_index[number-proper_moves[i+1]],board)
 
-        try:
-            if (choosen_number==number-22 and board[choosen_index].player=="empty"
-                and board[coordinate_to_index[number-11]].player==oposite_player):
-
-                Board().replace_pawn(choosen_index, board, player)
-                Board().delete_pawn(coordinate_to_index[number-11], board)
-                return True
-        except KeyError:
-            pass
-
-        try:
-            if (choosen_number == number +18 and board[choosen_index].player == "empty"
-                    and board[coordinate_to_index[number +9]].player == oposite_player):
-
-                Board().replace_pawn(choosen_index, board, player)
-                Board().delete_pawn(coordinate_to_index[number + 9], board)
-                return True
-        except KeyError:
-            pass
-
-        try:
-            if (choosen_number == number + 22 and board[choosen_index].player == "empty"
-                    and board[coordinate_to_index[number + 11]].player == oposite_player):
-
-                Board().replace_pawn(choosen_index, board, player)
-                Board().delete_pawn(coordinate_to_index[number + 11], board)
-                return True
-        except KeyError:
-            pass
+                    return True
+            except KeyError:
+                pass
 
     def multihit_move(self):
         pass
