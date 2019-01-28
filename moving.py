@@ -50,18 +50,60 @@ class Moving:
     # move with clashing the pawn
     def hit_move(self,turn,field_index,choosen_index,board,player):
 
+        # create oposite player to if statement
+        if player=="player_1":
+            oposite_player="player_2"
+        elif player=="player_2":
+            oposite_player="player_1"
 
+        # number of field - coordinate
         number = board[field_index].field_number
 
+        # number of choosen field to move
         choosen_number = board[choosen_index].field_number
 
-        if( choosen_number in [number-18 , number-22 , number+22 , number+18] \
-                and board[choosen_index].player == "empty"):
+        # convert coordinate number to list number
+        coordinate_to_index=Moving().index_to_coordinate()
 
-            Board().replace_pawn(choosen_index, board, player)
+        try:
+            if (choosen_number==(number-18) and board[choosen_index].player=="empty"
+                and board[coordinate_to_index[number-9]].player==oposite_player):
 
-            return True
+                Board().replace_pawn(choosen_index, board, player)
 
+                return True
+        except KeyError:
+            pass
+
+        try:
+            if (choosen_number==number-22 and board[choosen_index].player=="empty"
+                and board[coordinate_to_index[number-11]].player==oposite_player):
+
+                Board().replace_pawn(choosen_index, board, player)
+
+                return True
+        except KeyError:
+            pass
+
+        try:
+            if (choosen_number == number +18 and board[choosen_index].player == "empty"
+                    and board[coordinate_to_index[number +9]].player == oposite_player):
+
+                Board().replace_pawn(choosen_index, board, player)
+
+                return True
+        except KeyError:
+            pass
+
+        try:
+            if (choosen_number == number + 22 and board[choosen_index].player == "empty"
+                    and board[coordinate_to_index[number + 11]].player == oposite_player):
+
+                Board().replace_pawn(choosen_index, board, player)
+
+                return True
+        except KeyError:
+            pass
 
     def multihit_move(self):
         pass
