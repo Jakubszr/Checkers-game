@@ -61,6 +61,13 @@ class Board:
                 field.y_coordinate <=y and field.y_end_coordinate >y):
 
                 return field_list.index(field)
+    def queen_transformation(self,player,board,choosen_field):
+
+        if player=="player_1" and board[choosen_field].field_number in [81,82,83,84,85,86,87,88]:
+            board[choosen_field].player="black_queen"
+        elif player=="player_2" and board[choosen_field].field_number in [11,12,13,14,15,16,17,18]:
+            board[choosen_field].player="white_queen"
+
 
 
 

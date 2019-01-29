@@ -16,7 +16,9 @@ pygame.display.set_caption("Checkers")
 # backscreen, pawns and other graphics
 bg=pygame.transform.scale(pygame.image.load('board.jpg'), (1000,1000))
 player_1=pygame.transform.scale(pygame.image.load('black_pawn.png'), (100,100))
+player_1_queen=pygame.transform.scale(pygame.image.load('white_queen.jpg'), (100,100))
 player_2=pygame.transform.scale(pygame.image.load('white_pawn.png'), (100,100))
+player_2_queen=pygame.transform.scale(pygame.image.load('black_queen.png'), (100,100))
 choosen=pygame.transform.scale(pygame.image.load('yellow_pawn.png'), (100,100))
 
 # show mouse indicator
@@ -52,6 +54,10 @@ while run:
             win.blit(player_2, (field.x_coordinate,field.y_coordinate))
         elif field.player == "choosen":
             win.blit(choosen, (field.x_coordinate, field.y_coordinate))
+        elif field.player == "white_queen":
+            win.blit(player_1_queen, (field.x_coordinate, field.y_coordinate))
+        elif field.player == "black_queen":
+            win.blit(player_2_queen, (field.x_coordinate, field.y_coordinate))
 
     # get mouse coordiantes
     x, y = pygame.mouse.get_pos()
@@ -131,7 +137,8 @@ while run:
 
                 except:
                     pass
-    # update the screen
+                Board().queen_transformation(player,field_list,choosen_field)
+
     pygame.display.update()
 
 if __name__ == '__main__':
