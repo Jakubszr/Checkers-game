@@ -116,6 +116,9 @@ while run:
 
                         Board().delete_pawn(one_click_before, field_list)
 
+                        if Moving().double_hit_check(choosen_field,field_list,player)==True:
+                            #field_list[choosen_field].player = "choosen"
+                            player_turn*=-1
                         player_turn*=-1
 
                 except:
