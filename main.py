@@ -68,9 +68,10 @@ while run:
         # change player depending on turn
         if player_turn==1:
             player="player_1"
+            queen="black_queen"
         else:
             player="player_2"
-
+            queen="white_queen"
         # convert mouse coordinates to index of board list
         choosen_field = Board().choosen_field(x, y, field_list)
         # closing game
@@ -78,12 +79,14 @@ while run:
             sys.exit()
         # actions after click on the pawns
         if event.type == pygame.MOUSEBUTTONDOWN:
-            if field_list[choosen_field].player==player and multihit==False:
+            if field_list[choosen_field].player in [player,queen] and multihit==False:
                 loop_no = 0
 
-                if multihit==False:
-                    field_list[choosen_field].player="choosen"
 
+                if field_list[choosen_field].player==queen:
+                    field_list[choosen_field].player=queen
+                elif field_list[choosen_field].player==player:
+                    field_list[choosen_field].player = "choosen"
                 mouse_events_list.append(choosen_field)
                 print("mouse event",mouse_events_list)
                 # to do write the method
@@ -105,7 +108,8 @@ while run:
 
             # choice of field to move the pawn
             elif field_list[choosen_field].player=="empty":
-                # move the pawn to allowed
+
+                # normal pawn move
                 try:
                     if Moving().normal_move(player_turn, one_click_before, # to do: to shorten
                                          choosen_field,field_list,player)\
@@ -116,12 +120,25 @@ while run:
                         player_turn*=-1
                 except:
                     pass
+                #queen move
+                try:
+                    if (field_list[one_click_before].player==queen and Moving().queen_move(player_turn, one_click_before,
+                                            choosen_field, field_list, queen)
+                                            and multihit == False):
+                        # clear field of moved pawn
+                        Board().delete_pawn(one_click_before, field_list)
+
+                        player_turn *= -1
+                except:
+                    pass
+
                 #hitting move
                 try:
                     if Moving().hit_move(player_turn,one_click_before,choosen_field,field_list,player):
 
                         Board().delete_pawn(one_click_before, field_list)
 
+                        # check for possibility of double hit
                         if Moving().double_hit_check(choosen_field,field_list,player)==True:
                             field_list[choosen_field].player = "choosen"
                             player_turn*=-1
@@ -137,6 +154,8 @@ while run:
 
                 except:
                     pass
+                # exchange pawn to queen
+
                 Board().queen_transformation(player,field_list,choosen_field)
 
     pygame.display.update()

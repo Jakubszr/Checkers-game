@@ -107,8 +107,24 @@ class Moving:
                 pass
         return equation
 
-    def multihit_move(self):
-        pass
     # multifield queen move
-    def queen_move(self):
-        pass
+
+    def queen_move(self, turn, field_index, choosen_index, board, queen):
+
+        number = board[field_index].field_number
+
+        choosen_number = board[choosen_index].field_number
+
+        proper_moves=[11,22,33,44,55,66,77,-11,-22,-33,-44,-55,-66,-77,
+                      9,18,27,36,45,54,63,-9,-18,-27,-36,-45,-54,-63]
+
+        for i in proper_moves:
+            try:
+                if number + i== choosen_number and board[choosen_index].player == "empty":
+
+                    Board().replace_pawn(choosen_index, board, queen)
+                    equation=True
+
+            except KeyError:
+                pass
+        return equation
