@@ -29,6 +29,7 @@ field_list=Board().list_of_fields()
 player_turn=1
 number = -1
 run=True
+multihit=False
 
 # mouse field chose
 mouse_events_list=[]
@@ -66,20 +67,19 @@ while run:
 
         # convert mouse coordinates to index of board list
         choosen_field = Board().choosen_field(x, y, field_list)
-
         # closing game
         if event.type == pygame.QUIT:
             sys.exit()
         # actions after click on the pawns
         if event.type == pygame.MOUSEBUTTONDOWN:
-            # choice of pawn to move
-            if field_list[choosen_field].player==player:
+            if field_list[choosen_field].player==player and multihit==False:
                 loop_no = 0
 
-                field_list[choosen_field].player="choosen"
+                if multihit==False:
+                    field_list[choosen_field].player="choosen"
 
                 mouse_events_list.append(choosen_field)
-
+                print("mouse event",mouse_events_list)
                 # to do write the method
                 #
                 if len(mouse_events_list) >= 1:
@@ -88,28 +88,28 @@ while run:
                     two_click_before = mouse_events_list[len(mouse_events_list) - 2]
 
                 # change of selected pawn
-                if (len(mouse_events_list) >=2 and field_list[two_click_before].player=="choosen"):
+
+                if (len(mouse_events_list) >=2 and field_list[two_click_before].player=="choosen"
+                    and multihit==False):
 
                     field_list[mouse_events_list[len(mouse_events_list) - 2]].player = player
 
-                #number += 1
-                position_in_field=loop_no
-
-                loop_no+=1
+            #elif field_list[choosen_field].player=="empty" and multihit==True:
+             #   mouse_events_list.append(choosen_field)
 
             # choice of field to move the pawn
             elif field_list[choosen_field].player=="empty":
                 # move the pawn to allowed
                 try:
                     if Moving().normal_move(player_turn, one_click_before, # to do: to shorten
-                                         choosen_field,field_list,player):
+                                         choosen_field,field_list,player)\
+                                        and multihit==False:
                         # clear field of moved pawn
                         Board().delete_pawn(one_click_before,field_list)
 
                         player_turn*=-1
                 except:
                     pass
-
                 #hitting move
                 try:
                     if Moving().hit_move(player_turn,one_click_before,choosen_field,field_list,player):
@@ -117,8 +117,16 @@ while run:
                         Board().delete_pawn(one_click_before, field_list)
 
                         if Moving().double_hit_check(choosen_field,field_list,player)==True:
-                            #field_list[choosen_field].player = "choosen"
+                            field_list[choosen_field].player = "choosen"
                             player_turn*=-1
+                            mouse_events_list.append(choosen_field)
+                            one_click_before=choosen_field
+                            print(mouse_events_list)
+                            multihit=True
+                        else:
+                            multihit=False
+
+
                         player_turn*=-1
 
                 except:

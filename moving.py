@@ -51,9 +51,9 @@ class Moving:
     def hit_move(self,turn,field_index,choosen_index,board,player):
 
         # create oposite player to if statement
-        if player=="player_1":
+        if turn==1:
             oposite_player="player_2"
-        elif player=="player_2":
+        elif turn==-1:
             oposite_player="player_1"
 
         # number of field - coordinate
