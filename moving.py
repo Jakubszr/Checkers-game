@@ -53,9 +53,10 @@ class Moving:
         # create oposite player to if statement
         if turn==1:
             oposite_player="player_2"
+            oposite_queen="white_queen"
         elif turn==-1:
             oposite_player="player_1"
-
+            oposite_queen = "black_queen"
         # number of field - coordinate
         number = board[field_index].field_number
 
@@ -70,7 +71,7 @@ class Moving:
         for i in range(0,len(proper_moves),2):
             try:
                 if (choosen_number==number-proper_moves[i] and board[choosen_index].player=="empty"
-                and board[coordinate_to_index[number-proper_moves[i+1]]].player==oposite_player):
+                and board[coordinate_to_index[number-proper_moves[i+1]]].player in [oposite_player,oposite_queen]):
 
                     Board().replace_pawn(choosen_index, board, player)
                     Board().delete_pawn(coordinate_to_index[number-proper_moves[i+1]],board)

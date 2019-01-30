@@ -155,8 +155,8 @@ while run:
                 except:
                     pass
                 # exchange pawn to queen
-
-                Board().queen_transformation(player,field_list,choosen_field)
+                if multihit==False:
+                    Board().queen_transformation(player,field_list,choosen_field)
 
     pygame.display.update()
 
