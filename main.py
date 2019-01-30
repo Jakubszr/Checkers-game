@@ -111,9 +111,9 @@ while run:
 
                 # normal pawn move
                 try:
-                    if Moving().normal_move(player_turn, one_click_before, # to do: to shorten
-                                         choosen_field,field_list,player)\
-                                        and multihit==False:
+                    if (field_list[one_click_before].player!=queen and Moving().normal_move(player_turn, one_click_before, # to do: to shorten
+                                         choosen_field,field_list,player)
+                                        and multihit==False):
                         # clear field of moved pawn
                         Board().delete_pawn(one_click_before,field_list)
 
