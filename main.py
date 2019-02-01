@@ -133,7 +133,7 @@ while run:
                 except:
                     pass
 
-                #hitting move
+                #hitting move pawn
                 try:
                     if (field_list[one_click_before].player!=queen
                             and Moving().hit_move(player_turn,one_click_before,choosen_field,field_list,player)):
@@ -156,6 +156,20 @@ while run:
 
                 except:
                     pass
+                #queen hit
+                try:
+                    if field_list[one_click_before].player == queen and multihit == False:
+
+                        list = Moving().queen_normal_move(one_click_before, choosen_field, field_list)
+                        hit_move=Moving().hit_move_queen(list, field_list,player_turn,player,queen)
+                        if hit_move[0] == True:
+                            Board().replace_pawn(choosen_field, field_list, queen)
+                            Board().delete_pawn(one_click_before, field_list)
+                            Board().delete_pawn(hit_move[1],field_list)
+                            player_turn *= -1
+                except:
+                    pass
+
                 # exchange pawn to queen
                 if multihit==False and field_list[one_click_before].player!=queen:
                     Board().queen_transformation(player,field_list,choosen_field)

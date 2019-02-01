@@ -28,6 +28,14 @@ class Moving:
 
         return index_to_coordinate
 
+    def oposite_player(self,turn):
+        if turn==1:
+            oposite_player="player_2"
+            oposite_queen="white_queen"
+        elif turn==-1:
+            oposite_player="player_1"
+            oposite_queen = "black_queen"
+        return oposite_player,oposite_queen
     # normal move wihout clashing the pawn
     def normal_move(self,turn,field_index,choosen_index,board,player):
 
@@ -160,4 +168,24 @@ class Moving:
             if board[coordinte_to_index[i]].player!="empty":
                 equation=False
         return equation
+
+    def hit_move_queen(self,list,board,turn,player,queen):
+
+        coordinte_to_index = self.index_to_coordinate()
+        iterator=0
+        equation = False
+        oposite_player=self.oposite_player(turn)
+        pawn_to_hit=0
+        for i in list:
+
+            if board[coordinte_to_index[i]].player == "empty":
+                iterator+=1
+            elif board[coordinte_to_index[i]].player in [player,queen]:
+                iterator-=1
+            elif board[coordinte_to_index[i]].player in oposite_player:
+                pawn_to_hit=coordinte_to_index[i]
+        if iterator==len(list)-1:
+            equation=True
+
+        return equation,pawn_to_hit
 
