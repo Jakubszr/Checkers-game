@@ -74,21 +74,21 @@ while run:
             queen="white_queen"
         # convert mouse coordinates to index of board list
         choosen_field = Board().choosen_field(x, y, field_list)
+        print(choosen_field)
+        print("multihit",multihit)
         # closing game
         if event.type == pygame.QUIT:
             sys.exit()
         # actions after click on the pawns
         if event.type == pygame.MOUSEBUTTONDOWN:
-            if field_list[choosen_field].player in [player,queen] and multihit==False:
-                loop_no = 0
-
+            if field_list[choosen_field].player in [player, queen] and multihit == False:
 
                 if field_list[choosen_field].player==queen:
                     field_list[choosen_field].player=queen
                 elif field_list[choosen_field].player==player:
                     field_list[choosen_field].player = "choosen"
                 mouse_events_list.append(choosen_field)
-                #print("mouse event",mouse_events_list)
+                #("mouse event",mouse_events_list)
                 # to do write the method
                 #
                 if len(mouse_events_list) >= 1:
@@ -151,22 +151,36 @@ while run:
                         else:
                             multihit=False
 
-
                         player_turn*=-1
 
                 except:
                     pass
                 #queen hit
                 try:
-                    if field_list[one_click_before].player == queen and multihit == False:
+                    if field_list[one_click_before].player == queen :
 
                         list = Moving().queen_normal_move(one_click_before, choosen_field, field_list)
                         hit_move=Moving().hit_move_queen(list, field_list,player_turn,player,queen)
+
                         if hit_move[0] == True:
                             Board().replace_pawn(choosen_field, field_list, queen)
                             Board().delete_pawn(one_click_before, field_list)
                             Board().delete_pawn(hit_move[1],field_list)
-                            player_turn *= -1
+
+                        # check for possibility of multi hit
+                            list = Moving().queen_normal_move(one_click_before, choosen_field, field_list)
+                            hit_move = Moving().hit_move_queen(list, field_list, player_turn, player, queen)
+                            if hit_move[0] == True:
+                                player_turn *= -1
+                                mouse_events_list.append(choosen_field)
+                                one_click_before = choosen_field
+                                print(mouse_events_list)
+                                multihit = True
+
+                            else:
+                                multihit=False
+
+                        player_turn *= -1
                 except:
                     pass
 

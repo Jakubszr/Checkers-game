@@ -189,3 +189,22 @@ class Moving:
 
         return equation,pawn_to_hit
 
+    def double_hit_queen(self,turn,choosen_index,board,player):
+
+        oposite_player=self.oposite_player(turn)
+
+        # number of choosen field to move
+        choosen_number = board[choosen_index].field_number
+
+        # convert coordinate number to list number
+        coordinate_to_index = Moving().index_to_coordinate()
+
+        result=False
+        # fields on upper left
+        x=choosen_number
+        list=[]
+        while  x>=0:
+            x-=11
+            list.append(self.index_to_coordinate()[x])
+
+        return equation
