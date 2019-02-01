@@ -120,7 +120,7 @@ while run:
                         player_turn*=-1
                 except:
                     pass
-
+                #queen normal move
                 try:
                     if field_list[one_click_before].player==queen and multihit==False:
 
@@ -129,26 +129,14 @@ while run:
                         if Moving().empty_way_queen_move(list,field_list)==True:
                             Board().replace_pawn(choosen_field, field_list, queen)
                             Board().delete_pawn(one_click_before, field_list)
-
                             player_turn*=-1
                 except:
                     pass
 
-                #queen move
-                #try:
-                 #   if (field_list[one_click_before].player==queen and Moving().queen_move(player_turn, one_click_before,
-                  #                          choosen_field, field_list, queen)
-                   #                         and multihit == False):
-                        # clear field of moved pawn
-                    #    Board().delete_pawn(one_click_before, field_list)
-
-                     #   player_turn *= -1
-                #except:
-                 #   pass
-
                 #hitting move
                 try:
-                    if Moving().hit_move(player_turn,one_click_before,choosen_field,field_list,player):
+                    if (field_list[one_click_before].player!=queen
+                            and Moving().hit_move(player_turn,one_click_before,choosen_field,field_list,player)):
 
                         Board().delete_pawn(one_click_before, field_list)
 
@@ -169,7 +157,7 @@ while run:
                 except:
                     pass
                 # exchange pawn to queen
-                if multihit==False:
+                if multihit==False and field_list[one_click_before].player!=queen:
                     Board().queen_transformation(player,field_list,choosen_field)
 
     pygame.display.update()

@@ -118,10 +118,10 @@ class Moving:
 
         x=choosen_number
 
-
+        # to shorten
         way_of_queen=[]
         # can be done by modulo expression
-        while x>=number and choosen_number%10>number%10: #probalby ok
+        while x>=number and choosen_number%10>number%10:
 
             way_of_queen.append(x)
             x -= 11
@@ -129,14 +129,14 @@ class Moving:
                 return way_of_queen
 
         x = choosen_number
-        while x<=number and choosen_number%10<number%10: # probably ok
+        while x<=number and choosen_number%10<number%10:
 
             way_of_queen.append(x)
             x += 11
             if number ==x:
                 return way_of_queen
         x = choosen_number
-        while x>=number and choosen_number%10<number%10:#ok
+        while x>=number and choosen_number%10<number%10:
 
             way_of_queen.append(x)
             x -= 9
@@ -145,7 +145,7 @@ class Moving:
 
         x = choosen_number
 
-        while x<=number and choosen_number%10>number%10: #probaly ok
+        while x<=number and choosen_number%10>number%10:
 
             way_of_queen.append(x)
             x += 9
@@ -161,24 +161,3 @@ class Moving:
                 equation=False
         return equation
 
-""""
-    def queen_move(self, turn, field_index, choosen_index, board, queen):
-
-        number = board[field_index].field_number
-
-        choosen_number = board[choosen_index].field_number
-
-        proper_moves=[11,22,33,44,55,66,77,-11,-22,-33,-44,-55,-66,-77,
-                      9,18,27,36,45,54,63,-9,-18,-27,-36,-45,-54,-63]
-
-        for i in proper_moves:
-            try:
-                if number + i== choosen_number and board[choosen_index].player == "empty":
-
-                    Board().replace_pawn(choosen_index, board, queen)
-                    equation=True
-
-            except KeyError:
-                pass
-        return equation
-"""
