@@ -88,7 +88,7 @@ while run:
                 elif field_list[choosen_field].player==player:
                     field_list[choosen_field].player = "choosen"
                 mouse_events_list.append(choosen_field)
-                print("mouse event",mouse_events_list)
+                #print("mouse event",mouse_events_list)
                 # to do write the method
                 #
                 if len(mouse_events_list) >= 1:
@@ -120,17 +120,31 @@ while run:
                         player_turn*=-1
                 except:
                     pass
-                #queen move
-                try:
-                    if (field_list[one_click_before].player==queen and Moving().queen_move(player_turn, one_click_before,
-                                            choosen_field, field_list, queen)
-                                            and multihit == False):
-                        # clear field of moved pawn
-                        Board().delete_pawn(one_click_before, field_list)
 
-                        player_turn *= -1
+                try:
+                    if field_list[one_click_before].player==queen and multihit==False:
+
+                        list= Moving().queen_normal_move(one_click_before,choosen_field,field_list)
+                        print (list)
+                        if Moving().empty_way_queen_move(list,field_list)==True:
+                            Board().replace_pawn(choosen_field, field_list, queen)
+                            Board().delete_pawn(one_click_before, field_list)
+
+                            player_turn*=-1
                 except:
                     pass
+
+                #queen move
+                #try:
+                 #   if (field_list[one_click_before].player==queen and Moving().queen_move(player_turn, one_click_before,
+                  #                          choosen_field, field_list, queen)
+                   #                         and multihit == False):
+                        # clear field of moved pawn
+                    #    Board().delete_pawn(one_click_before, field_list)
+
+                     #   player_turn *= -1
+                #except:
+                 #   pass
 
                 #hitting move
                 try:

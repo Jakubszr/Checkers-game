@@ -110,6 +110,58 @@ class Moving:
 
     # multifield queen move
 
+    def queen_normal_move(self, field_index, choosen_index,board):
+
+        number = board[field_index].field_number
+
+        choosen_number = board[choosen_index].field_number
+
+        x=choosen_number
+
+
+        way_of_queen=[]
+        # can be done by modulo expression
+        while x>=number and choosen_number%10>number%10: #probalby ok
+
+            way_of_queen.append(x)
+            x -= 11
+            if number ==x:
+                return way_of_queen
+
+        x = choosen_number
+        while x<=number and choosen_number%10<number%10: # probably ok
+
+            way_of_queen.append(x)
+            x += 11
+            if number ==x:
+                return way_of_queen
+        x = choosen_number
+        while x>=number and choosen_number%10<number%10:#ok
+
+            way_of_queen.append(x)
+            x -= 9
+            if number==x:
+                return way_of_queen
+
+        x = choosen_number
+
+        while x<=number and choosen_number%10>number%10: #probaly ok
+
+            way_of_queen.append(x)
+            x += 9
+            if number==x:
+                return way_of_queen
+
+    def empty_way_queen_move(self,list,board):
+
+        coordinte_to_index=self.index_to_coordinate()
+        equation=True
+        for i in list:
+            if board[coordinte_to_index[i]].player!="empty":
+                equation=False
+        return equation
+
+""""
     def queen_move(self, turn, field_index, choosen_index, board, queen):
 
         number = board[field_index].field_number
@@ -129,3 +181,4 @@ class Moving:
             except KeyError:
                 pass
         return equation
+"""
