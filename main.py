@@ -109,17 +109,27 @@ while run:
             # choice of field to move the pawn
             elif field_list[choosen_field].player=="empty":
 
+                number = Moving().number(field_list, one_click_before)
+                choosen_number = Moving().choosen_number(field_list, choosen_field)
+                player_name = Moving().player_name(field_list, choosen_field)
+
+
+
                 # normal pawn move
                 try:
-                    if (field_list[one_click_before].player!=queen and Moving().normal_move(player_turn, one_click_before, # to do: to shorten
-                                         choosen_field,field_list,player)
+
+                    if (field_list[one_click_before].player!=queen
+                            and Moving().normal_move(player_turn, number,choosen_number,player_name)
                                         and multihit==False):
                         # clear field of moved pawn
                         Board().delete_pawn(one_click_before,field_list)
+                        # put pawn in the empty field
+                        Board().replace_pawn(choosen_field,field_list,player)
 
                         player_turn*=-1
                 except:
                     pass
+
                 #queen normal move
                 try:
                     if field_list[one_click_before].player==queen and multihit==False:

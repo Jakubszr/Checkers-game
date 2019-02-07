@@ -39,28 +39,23 @@ class Moving:
             oposite_queen = "black_queen"
         return oposite_player,oposite_queen
 
-    def field_number(self,board,field_index):
+    def number(self,board,field_index):
         return board[field_index].field_number
 
-    def choosen_number(self,board,choosen_index,player):
+    def choosen_number(self,board,choosen_index):
         return board[choosen_index].field_number
-    # normal move wihout clashing the pawn
 
-    def normal_move(self,turn,field_index,choosen_index,board,player):
+    def player_name(self,board,choosen_index):
+        return board[choosen_index].player
 
-        number = board[field_index].field_number
+    # normal move
+    def normal_move(self,turn,number,choosen_number,player):
 
-        choosen_number = board[choosen_index].field_number
-
-        if number+turn*9==choosen_number and board[choosen_index].player=="empty":
-
-            Board().replace_pawn(choosen_index,board,player)
+        if number+turn*9==choosen_number and player=="empty":
 
             return True
 
-        elif number+turn*11==choosen_number and board[choosen_index].player=="empty":
-
-            Board().replace_pawn(choosen_index,board, player)
+        elif number+turn*11==choosen_number and player=="empty":
 
             return True
 
