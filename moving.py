@@ -7,6 +7,7 @@ class Moving:
 
        pass
 
+    # convert index to coordinate
     def index_to_coordinate(self):
         # dictionary to transform index to coordinate of field
         index_to_coordinate={}
@@ -28,6 +29,7 @@ class Moving:
 
         return index_to_coordinate
 
+    # oposite player
     def oposite_player(self,turn):
         if turn==1:
             oposite_player="player_2"
@@ -36,7 +38,14 @@ class Moving:
             oposite_player="player_1"
             oposite_queen = "black_queen"
         return oposite_player,oposite_queen
+
+    def field_number(self,board,field_index):
+        return board[field_index].field_number
+
+    def choosen_number(self,board,choosen_index,player):
+        return board[choosen_index].field_number
     # normal move wihout clashing the pawn
+
     def normal_move(self,turn,field_index,choosen_index,board,player):
 
         number = board[field_index].field_number
@@ -205,6 +214,6 @@ class Moving:
         list=[]
         while  x>=0:
             x-=11
-            list.append(self.index_to_coordinate()[x])
+            list.append(board[self.index_to_coordinate()[x]])
 
         return equation
