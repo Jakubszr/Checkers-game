@@ -146,9 +146,10 @@ while run:
                 #hitting move pawn
                 try:
                     if (field_list[one_click_before].player!=queen
-                            and Moving().hit_move(player_turn,one_click_before,choosen_field,field_list,player)):
+                            and Moving().hit_move(player_turn,number,choosen_number,field_list,player_name)==True):
 
                         Board().delete_pawn(one_click_before, field_list)
+                        Board().replace_pawn(choosen_field, field_list, player)
 
                         # check for possibility of double hit
                         if Moving().double_hit_check(choosen_field,field_list,player)==True:
