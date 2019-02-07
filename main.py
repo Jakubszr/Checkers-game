@@ -88,9 +88,9 @@ while run:
                 elif field_list[choosen_field].player==player:
                     field_list[choosen_field].player = "choosen"
                 mouse_events_list.append(choosen_field)
-                #("mouse event",mouse_events_list)
+
                 # to do write the method
-                #
+
                 if len(mouse_events_list) >= 1:
                     one_click_before = mouse_events_list[len(mouse_events_list) - 1]
                 if len(mouse_events_list) >= 2:
@@ -103,22 +103,19 @@ while run:
 
                     field_list[mouse_events_list[len(mouse_events_list) - 2]].player = player
 
-            #elif field_list[choosen_field].player=="empty" and multihit==True:
-             #   mouse_events_list.append(choosen_field)
-
             # choice of field to move the pawn
             elif field_list[choosen_field].player=="empty":
 
                 number = Moving().number(field_list, one_click_before)
                 choosen_number = Moving().choosen_number(field_list, choosen_field)
                 player_name = Moving().player_name(field_list, choosen_field)
-
+                choosen_pawn=field_list[one_click_before].player
 
 
                 # normal pawn move
                 try:
 
-                    if (field_list[one_click_before].player!=queen
+                    if (choosen_pawn!=queen
                             and Moving().normal_move(player_turn, number,choosen_number,player_name)
                                         and multihit==False):
                         # clear field of moved pawn
@@ -132,10 +129,11 @@ while run:
 
                 #queen normal move
                 try:
-                    if field_list[one_click_before].player==queen and multihit==False:
+                    if choosen_pawn==queen and multihit==False:
 
-                        list= Moving().queen_normal_move(one_click_before,choosen_field,field_list)
+                        list= Moving().queen_normal_move(number,choosen_number)
                         print (list)
+
                         if Moving().empty_way_queen_move(list,field_list)==True:
                             Board().replace_pawn(choosen_field, field_list, queen)
                             Board().delete_pawn(one_click_before, field_list)
@@ -145,19 +143,19 @@ while run:
 
                 #hitting move pawn
                 try:
-                    if (field_list[one_click_before].player!=queen
+                    if (choosen_pawn!=queen
                             and Moving().hit_move(player_turn,number,choosen_number,field_list,player_name)==True):
 
                         Board().delete_pawn(one_click_before, field_list)
                         Board().replace_pawn(choosen_field, field_list, player)
 
                         # check for possibility of double hit
-                        if Moving().double_hit_check(choosen_field,field_list,player)==True:
+                        if Moving().double_hit_check(player_turn, choosen_field,field_list)==True:
                             field_list[choosen_field].player = "choosen"
                             player_turn*=-1
                             mouse_events_list.append(choosen_field)
                             one_click_before=choosen_field
-                            print(mouse_events_list)
+                            #print(mouse_events_list)
                             multihit=True
                         else:
                             multihit=False
@@ -166,11 +164,13 @@ while run:
 
                 except:
                     pass
+
                 #queen hit
                 try:
-                    if field_list[one_click_before].player == queen :
+                    if choosen_pawn == queen:
 
-                        list = Moving().queen_normal_move(one_click_before, choosen_field, field_list)
+                        list = Moving().queen_normal_move(number,choosen_number)
+
                         hit_move=Moving().hit_move_queen(list, field_list,player_turn,player,queen)
 
                         if hit_move[0] == True:
@@ -178,6 +178,7 @@ while run:
                             Board().delete_pawn(one_click_before, field_list)
                             Board().delete_pawn(hit_move[1],field_list)
 
+                        # to do
                         # check for possibility of multi hit
                             list = Moving().queen_normal_move(one_click_before, choosen_field, field_list)
                             hit_move = Moving().hit_move_queen(list, field_list, player_turn, player, queen)

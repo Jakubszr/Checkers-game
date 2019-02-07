@@ -9,7 +9,6 @@ class Field:
     # first field distance from upper edge board
     start_y_coordinate=62
 
-
     def __init__ (self,player="empty",x_coordinate=start_x_coordinate,y_coordinate=start_y_coordinate,field_number=11):
 
         self.player=player

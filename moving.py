@@ -83,13 +83,9 @@ class Moving:
                 pass
 
 
-    def double_hit_check(self,choosen_index,board,player):
-        # create oposite player to if statement
-        if player == "player_1":
-            oposite_player = "player_2"
-        elif player == "player_2":
-            oposite_player = "player_1"
+    def double_hit_check(self, turn, choosen_index,board):
 
+        oposite_player = self.oposite_player(turn)
 
         # number of choosen field to move
         choosen_number = board[choosen_index].field_number
@@ -98,11 +94,12 @@ class Moving:
         coordinate_to_index = Moving().index_to_coordinate()
 
         proper_moves = [-18, -9, -22, -11, +18, +9, +22, +11]
+
         equation=False
         for i in range(0, len(proper_moves), 2):
             try:
                 if (board[coordinate_to_index[choosen_number+proper_moves[i]]].player=="empty"
-                        and board[coordinate_to_index[choosen_number+proper_moves[i+1]]].player==oposite_player):
+                        and board[coordinate_to_index[choosen_number+proper_moves[i+1]]].player in oposite_player):
 
                     equation=True
 
@@ -111,15 +108,11 @@ class Moving:
         return equation
 
     # multifield queen move
-    def queen_normal_move(self, field_index, choosen_index,board):
 
-        number = board[field_index].field_number
-
-        choosen_number = board[choosen_index].field_number
+    def queen_normal_move(self, number, choosen_number):
 
         x=choosen_number
 
-        # to shorten
         way_of_queen=[]
         # can be done by modulo expression
         while x>=number and choosen_number%10>number%10:
@@ -183,6 +176,7 @@ class Moving:
 
         return equation,pawn_to_hit
 
+    # TO DO
     def double_hit_queen(self,turn,choosen_index,board,player):
 
         oposite_player=self.oposite_player(turn)
